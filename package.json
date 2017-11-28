@@ -12,5 +12,8 @@
     "express": "^4.16.2",
     "hbs": "^4.0.1",
     "mongoose": "^4.13.4"
+  },
+  "devDependencies": {
+    "mongoose-beautiful-unique-validation": "^7.0.0"
   }
 }
