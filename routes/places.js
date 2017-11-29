@@ -44,20 +44,14 @@ router.post('/places/create', (req, res) => {
         cuisine: cuisine,
         location: location
     });
-
-    // need to work on the validation......
     restaurant.save(function(err, restaurant) {
-        if (err.errors.name.properties.type === 'unique') {
-            res.send({error: err.errors.name.message});
-        }
-        else if(err.errors.name.properties.type === 'required') {
-            res.send({error:err.errors.location.message});
-            //res.send({duplicateError: "Cannot Add! Restaurant Already Exists!"});
-        }
-        else {
+        if (err && err.code === 11000) {
+            res.json({"error": "Restaurant Already Exists!"});
+        } else if(err)
+            res.json({"error": "All the fields must be populated"});
+        else
             // send back the object that was saved.
             res.json(restaurant);
-        }
     });
 });
 
